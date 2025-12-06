@@ -1,55 +1,66 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: None → 1.0.0
+Modified principles: None
+Added sections: Key Standards, Constraints and Success Criteria
+Removed sections: None
+Templates requiring updates:
+  - .specify/templates/plan-template.md: ⚠ pending
+  - .specify/templates/spec-template.md: ⚠ pending
+  - .specify/templates/tasks-template.md: ⚠ pending
+  - .specify/templates/commands/*.md: ⚠ pending
+  - README.md: ⚠ pending
+  - docs/quickstart.md: ⚠ pending
+Follow-up TODOs: None
+-->
+# Create a Textbook for Teaching Physical AI & Humanoid Robotics Course Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Accuracy
+Accuracy through expert source verification and integration of current research in robotics and AI
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Clarity
+Clarity for educational audience (university-level students with engineering or computer science background)
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Comprehensiveness
+Comprehensiveness (covering theoretical foundations, practical applications, and ethical considerations)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Practicality
+Practicality (include code examples, simulations, and deployable resources for hands-on learning)
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Innovation
+Innovation (emphasize emerging trends in physical AI and humanoid robotics, such as human-robot collaboration)
 
-### [PRINCIPLE_6_NAME]
+## Key Standards
 
+All technical claims must be traceable to sources, with explanations of methodologies and limitations.
+Citation format: APA style for references, with in-text citations for all factual assertions.
+Source types: minimum 50% peer-reviewed articles or conference papers (e.g., from IEEE, ICRA, or NeurIPS); include reputable textbooks, technical reports, and open-source repositories.
+Plagiarism check: 0% tolerance before final deployment; use tools like Turnitin or Grammarly for verification.
+Writing clarity: Flesch-Kincaid grade 12-14, with technical terms defined on first use and accompanied by diagrams or examples.
+Code and tools integration: Use Spec-Kit Plus for specification-driven development and Claude Code for AI-assisted coding; ensure all code snippets are executable and version-controlled.
+Structure: Organize as a Docusaurus site with markdown chapters, navigation, search functionality, and multimedia embeds (e.g., videos of robot demos).
 
-[PRINCIPLE__DESCRIPTION]
+## Constraints and Success Criteria
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Constraints:**
+Chapter count: 10-15 chapters, covering topics from basics (e.g., kinematics, sensors) to advanced (e.g., AI integration, humanoid ethics).
+Total content length: Equivalent to 200-300 pages if printed, with each chapter 5,000-10,000 words including code and figures.
+Minimum 30 sources, diversified across academic, industry, and open-source domains.
+Format: Docusaurus markdown files, deployed to GitHub Pages as a static site; include responsive design for mobile access.
+Tools restriction: Exclusively use Spec-Kit Plus for project specs and Claude Code for generation; no external unpaid APIs or proprietary software.
+Timeline: Complete draft in 4-6 weeks, with iterative reviews.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**Success Criteria:**
+All content verified against sources for technical accuracy and relevance.
+Zero plagiarism detected in final checks.
+Successful deployment to GitHub Pages with functional navigation, search, and no broken links.
+Passes peer review simulation (e.g., feedback from 3-5 experts in robotics/AI).
+Educational impact: Includes at least 5 interactive elements (e.g., code playgrounds via embedded Jupyter or simulations) and receives positive usability feedback.
+Completeness: Covers all required topics, with glossary, index, and supplementary resources (e.g., datasets, models) linked or hosted.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This constitution supersedes all other practices and serves as the foundational document for the project. Amendments require documentation, approval by project leads, and a clear migration plan. All Pull Requests and code reviews must verify compliance with these principles, standards, and constraints. Any increase in complexity must be rigorously justified.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2025-12-06 | **Last Amended**: 2025-12-06
