@@ -9,3 +9,34 @@ Thumbs.db
 *.swp
 .vscode/
 .idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.hypothesis/
+
+# Docusaurus
+my-website/.docusaurus/
+my-website/build/
+my-website/node_modules/
+my-website/.cache/
+my-website/dist/

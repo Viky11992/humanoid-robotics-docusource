@@ -37,6 +37,10 @@ const config: Config = {
 
   themes: ['@docusaurus/theme-live-codeblock'],
 
+  scripts: [
+    { src: '/js/rag-chatbot.js', defer: true }
+  ],
+
   presets: [
     [
       'classic',

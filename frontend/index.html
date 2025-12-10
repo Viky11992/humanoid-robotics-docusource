@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RAG Chatbot</h1>
+            <p>Ask questions about the book content</p>
+        </header>
+
+        <div class="main-content">
+            <div class="book-content">
+                <h2>Your Textbook Content</h2>
+                <div class="book-text" id="bookText">
+                    <h3>Chapter 1: Introduction</h3>
+                    <p>PLACEHOLDER: Add your actual textbook content here from your Docusaurus site.</p>
+                    <p>For example, if your textbook is about AI, you might have content like:</p>
+                    <p>"Artificial Intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of 'intelligent agents'."</p>
+
+                    <h3>Chapter 2: Core Concepts</h3>
+                    <p>"Machine learning is a method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and make decisions with minimal human intervention."</p>
+
+                    <h3>Chapter 3: Applications</h3>
+                    <p>"AI applications include advanced web search engines, recommendation systems, understanding human speech, self-driving cars, automated decision-making, and competing at the highest level in strategic game systems."</p>
+
+                    <h3>Chapter 4: Future Perspectives</h3>
+                    <p>"The various sub-fields of AI research are centered around particular goals and the use of particular tools. The traditional goals of AI research include reasoning, knowledge representation, planning, learning, natural language processing, perception, and the ability to move and manipulate objects."</p>
+
+                    <p>[CONTINUE ADDING YOUR TEXTBOOK CONTENT HERE]</p>
+                    <p>[SELECT ANY TEXT FROM THIS CONTENT TO PROVIDE CONTEXT FOR YOUR QUESTIONS]</p>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-history" id="chatHistory">
+                    <!-- Chat messages will appear here -->
+                    <div class="message bot">
+                        <div class="message-content">
+                            Hello! I'm your RAG Chatbot. You can ask me questions about the book content. You can also select text from the book to provide specific context.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selected-text-preview" id="selectedTextPreview" style="display: none;">
+                    <h4>Selected Text (Context):</h4>
+                    <div id="selectedTextContent"></div>
+                    <button id="clearSelection">Clear Selection</button>
+                </div>
+
+                <div class="input-area">
+                    <textarea
+                        id="userInput"
+                        placeholder="Ask a question about the book..."
+                        rows="3"
+                    ></textarea>
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="sources-panel" id="sourcesPanel" style="display: none;">
+            <h3>Sources Used:</h3>
+            <ul id="sourcesList"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

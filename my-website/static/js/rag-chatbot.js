@@ -1,0 +1,333 @@
+// RAG Chatbot Component for Docusaurus
+// This component can be integrated into your Docusaurus site
+
+class RAGChatbot extends HTMLElement {
+  constructor() {
+    super();
+    this.isOpen = false;
+    this.apiBaseUrl = 'http://localhost:8000'; // Update this to your deployed backend URL (e.g., https://your-username.github.io/Heckathone-001-backend or your own server)
+    this.apiKey = 'OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU'; // Update this to your API key
+  }
+
+  connectedCallback() {
+    this.render();
+    this.attachEventListeners();
+  }
+
+  render() {
+    this.innerHTML = `
+      <style>
+        #rag-chatbot-container {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          z-index: 10000;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .chatbot-button {
+          background: #3498db;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          cursor: pointer;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+          background: #2980b9;
+          transform: scale(1.05);
+        }
+
+        .chatbot-window {
+          position: absolute;
+          bottom: 80px;
+          right: 0;
+          width: 400px;
+          height: 500px;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+          transform: translateY(20px);
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+
+        .chatbot-window.open {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .chat-header {
+          background: #3498db;
+          color: white;
+          padding: 15px;
+          font-weight: bold;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .close-button {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 20px;
+          cursor: pointer;
+          padding: 0;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .chat-messages {
+          flex: 1;
+          padding: 15px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          background: #f8f9fa;
+        }
+
+        .message {
+          max-width: 80%;
+          padding: 10px 15px;
+          border-radius: 18px;
+          word-wrap: break-word;
+        }
+
+        .message.user {
+          align-self: flex-end;
+          background-color: #3498db;
+          color: white;
+        }
+
+        .message.bot {
+          align-self: flex-start;
+          background-color: #e3f2fd;
+          color: #2c3e50;
+        }
+
+        .chat-input-area {
+          padding: 15px;
+          background: white;
+          border-top: 1px solid #eee;
+          display: flex;
+          gap: 10px;
+        }
+
+        .chat-input {
+          flex: 1;
+          padding: 10px 15px;
+          border: 1px solid #ddd;
+          border-radius: 20px;
+          outline: none;
+          font-size: 14px;
+        }
+
+        .chat-input:focus {
+          border-color: #3498db;
+        }
+
+        .send-button {
+          background: #3498db;
+          color: white;
+          border: none;
+          border-radius: 20px;
+          padding: 10px 15px;
+          cursor: pointer;
+        }
+
+        .send-button:hover {
+          background: #2980b9;
+        }
+
+        .typing-indicator {
+          align-self: flex-start;
+          background: #e3f2fd;
+          color: #2c3e50;
+          padding: 10px 15px;
+          border-radius: 18px;
+          font-style: italic;
+          display: none;
+        }
+
+        .typing-indicator.visible {
+          display: block;
+        }
+      </style>
+
+      <div id="rag-chatbot-container">
+        <button class="chatbot-button" id="chatbot-toggle">
+          💬
+        </button>
+        <div class="chatbot-window" id="chatbot-window">
+          <div class="chat-header">
+            <span>RAG Chatbot</span>
+            <button class="close-button" id="close-chat">×</button>
+          </div>
+          <div class="chat-messages" id="chat-messages">
+            <div class="message bot">
+              Hello! I'm your RAG Chatbot. I can answer questions about this documentation. What would you like to know?
+            </div>
+          </div>
+          <div class="typing-indicator" id="typing-indicator">AI is thinking...</div>
+          <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Ask about this documentation...">
+            <button class="send-button" id="send-button">Send</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  attachEventListeners() {
+    const toggleButton = this.querySelector('#chatbot-toggle');
+    const closeButton = this.querySelector('#close-chat');
+    const sendButton = this.querySelector('#send-button');
+    const chatInput = this.querySelector('#chat-input');
+    const chatWindow = this.querySelector('#chatbot-window');
+
+    toggleButton.addEventListener('click', () => this.toggleChat());
+    closeButton.addEventListener('click', () => this.closeChat());
+    sendButton.addEventListener('click', () => this.sendMessage());
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this.sendMessage();
+      }
+    });
+
+    // Close chat when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!chatWindow.contains(e.target) &&
+          !toggleButton.contains(e.target) &&
+          this.isOpen) {
+        // Don't close if clicking on other interactive elements
+        if (!e.target.closest('.button') && !e.target.closest('a') && !e.target.closest('input')) {
+          this.closeChat();
+        }
+      }
+    });
+  }
+
+  toggleChat() {
+    this.isOpen = !this.isOpen;
+    const chatWindow = this.querySelector('#chatbot-window');
+    chatWindow.classList.toggle('open', this.isOpen);
+
+    if (this.isOpen) {
+      this.querySelector('#chat-input').focus();
+    }
+  }
+
+  closeChat() {
+    this.isOpen = false;
+    const chatWindow = this.querySelector('#chatbot-window');
+    chatWindow.classList.remove('open');
+  }
+
+  async sendMessage() {
+    const input = this.querySelector('#chat-input');
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    // Add user message to chat
+    this.addMessage(message, 'user');
+    input.value = '';
+
+    // Show typing indicator
+    const typingIndicator = this.querySelector('#typing-indicator');
+    typingIndicator.classList.add('visible');
+
+    try {
+      // Get current page content as context (if available)
+      const currentPageContent = this.getCurrentPageContent();
+
+      // Call the RAG API
+      const response = await fetch(`${this.apiBaseUrl}/agent/ask`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': this.apiKey
+        },
+        body: JSON.stringify({
+          question: message,
+          selected_text: currentPageContent ? currentPageContent.substring(0, 2000) : null // Limit context
+        })
+      });
+
+      const data = await response.json();
+
+      // Hide typing indicator
+      typingIndicator.classList.remove('visible');
+
+      // Add bot response to chat
+      this.addMessage(data.answer, 'bot');
+
+      // Log the interaction
+      console.log('Chat response:', data);
+
+    } catch (error) {
+      console.error('Error sending message:', error);
+      typingIndicator.classList.remove('visible');
+      this.addMessage('Sorry, there was an error processing your request. Please try again.', 'bot');
+    }
+  }
+
+  addMessage(text, sender) {
+    const messagesContainer = this.querySelector('#chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+    messageDiv.textContent = text;
+    messagesContainer.appendChild(messageDiv);
+
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  getCurrentPageContent() {
+    // Try to get content from common Docusaurus elements
+    const contentSelectors = [
+      '.markdown', // Docusaurus markdown content
+      '.theme-doc-markdown', // Docusaurus doc content
+      'article', // General article content
+      '.main-wrapper' // Main content wrapper
+    ];
+
+    for (const selector of contentSelectors) {
+      const element = document.querySelector(selector);
+      if (element) {
+        return element.innerText || element.textContent || '';
+      }
+    }
+
+    // Fallback to body content
+    return document.body.innerText || document.body.textContent || '';
+  }
+}
+
+// Register the custom element
+customElements.define('rag-chatbot', RAGChatbot);
+
+// Auto-initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.querySelector('rag-chatbot')) {
+    const chatbot = document.createElement('rag-chatbot');
+    document.body.appendChild(chatbot);
+  }
+});
