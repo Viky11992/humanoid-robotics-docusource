@@ -157,11 +157,42 @@ pytest tests/
 
 ## Deployment
 
-### Backend
-The application is designed to be deployed as serverless functions. Ensure all environment variables are properly configured in your deployment environment.
+### Backend Deployment on Railway
 
-### Frontend
-The frontend can be deployed to any static hosting service (Vercel, Netlify, etc.).
+1. **Deploy to Railway**:
+   - Go to [Railway](https://railway.app)
+   - Create a new project
+   - Connect to your GitHub repository
+   - Select this repository and the `001-rag-chatbot` branch
+   - Railway will automatically detect the Dockerfile and deploy your application
+
+2. **Set Environment Variables**:
+   - `GOOGLE_API_KEY`: Your Google API key for Gemini model
+   - `DATABASE_URL`: PostgreSQL database URL (Railway provides this automatically if you add a PostgreSQL plugin)
+   - `QDRANT_URL`: (Optional) Qdrant vector database URL (defaults to localhost)
+   - `QDRANT_API_KEY`: (Optional) Qdrant API key
+   - `API_KEY`: Authentication key for API endpoints (defaults to "OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU")
+
+3. **Add PostgreSQL Plugin** (if not using external database):
+   - In your Railway project dashboard
+   - Click "New" → "Database" → "PostgreSQL"
+   - Railway will automatically connect it to your application
+
+4. **Add Qdrant Database** (if not using local):
+   - You can either self-host Qdrant or use Qdrant Cloud
+   - Add the connection details as environment variables
+
+### Frontend Deployment (Docusaurus) on Vercel
+
+1. **Deploy Docusaurus**:
+   - Go to [Vercel](https://vercel.com)
+   - Import your GitHub repository
+   - Set the root directory to `my-website`
+   - Vercel will automatically detect Docusaurus and build your site
+
+2. **Update Chatbot API URL**:
+   - After deploying the backend, update the API URL in `my-website/static/js/rag-chatbot.js`
+   - Change `this.apiBaseUrl` to your Railway backend URL
 
 ## Security
 

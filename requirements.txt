@@ -1,7 +1,8 @@
 google-generativeai
 fastapi
 qdrant-client
-psycopg
+psycopg[binary]
 uvicorn
 python-dotenv
 pytest
+pydantic

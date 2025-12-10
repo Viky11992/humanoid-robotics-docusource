@@ -1,0 +1,21 @@
+# Railway Configuration
+# This file helps Railway understand how to build and deploy your application
+
+# Use the Dockerfile for deployment
+builder: dockerfile
+
+# Specify the Dockerfile path
+dockerfilePath: Dockerfile
+
+# Build time environment variables
+build:
+  # Add any build-time variables if needed
+  vars:
+    PYTHON_VERSION: "3.10"
+
+# Runtime environment variables
+run:
+  # Runtime variables
+  vars:
+    PYTHONUNBUFFERED: "1"
+    PYTHONDONTWRITEBYTECODE: "1"
