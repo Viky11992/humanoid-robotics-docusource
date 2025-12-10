@@ -26,5 +26,5 @@ COPY . .
 # Expose port
 EXPOSE $PORT
 
-# Run the application
-CMD ["sh", "-c", "cd backend && uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Run the application - specify full path to avoid issues
+CMD ["sh", "-c", "cd /app/backend && python -m uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
