@@ -40,6 +40,22 @@ const config: Config = {
   scripts: [
     { src: '/js/rag-chatbot.js', defer: true }
   ],
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'api-key',
+        content: 'OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU', // Update this with your actual API key for production
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'api-base-url',
+        content: 'http://localhost:8000', // Update this with your actual backend URL for production
+      },
+    },
+  ],
 
   presets: [
     [

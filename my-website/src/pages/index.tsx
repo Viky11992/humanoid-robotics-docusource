@@ -11,7 +11,7 @@ import styles from './index.module.css';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx('hero hero--primary')}>
       <div className="container">
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
@@ -39,6 +39,7 @@ export default function Home(): ReactNode {
       <main>
         <HomepageFeatures />
       </main>
+      {/* RAG Chatbot will be initialized by the script in docusaurus.config.ts */}
     </Layout>
   );
 }

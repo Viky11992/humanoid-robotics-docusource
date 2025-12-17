@@ -5,8 +5,43 @@ class RAGChatbot extends HTMLElement {
   constructor() {
     super();
     this.isOpen = false;
-    this.apiBaseUrl = 'http://localhost:8000'; // Update this to your deployed backend URL (e.g., https://your-username.github.io/Heckathone-001-backend or your own server)
-    this.apiKey = 'OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU'; // Update this to your API key
+    // Use environment-specific API base URL
+    // For development: http://localhost:8000
+    // For production deployment: update to your backend URL
+    this.apiBaseUrl = this.getApiBaseUrl();
+    // Get API key from meta tag or global config (to be replaced with environment variable or server-side config)
+    this.apiKey = this.getApiKey(); // Updated to get API key dynamically
+  }
+
+  // Function to get API base URL based on environment
+  getApiBaseUrl() {
+    // Check if there's a meta tag with API base URL
+    const apiBaseMeta = document.querySelector('meta[name="api-base-url"]');
+    if (apiBaseMeta && apiBaseMeta.content) {
+        return apiBaseMeta.content;
+    }
+
+    // For development, use localhost
+    // For production GitHub Pages, you might need to update this to your backend URL
+    return 'http://localhost:8000';
+  }
+
+  // Function to get API key from meta tag or other configuration source
+  getApiKey() {
+    // Look for API key in a meta tag or configuration element
+    const apiKeyMeta = document.querySelector('meta[name="api-key"]');
+    if (apiKeyMeta && apiKeyMeta.content) {
+        return apiKeyMeta.content;
+    }
+
+    // You can also try to get it from a global variable set by your server-side template
+    if (window.API_CONFIG && window.API_CONFIG.apiKey) {
+        return window.API_CONFIG.apiKey;
+    }
+
+    // For development purposes only - this should be replaced in production
+    console.warn("WARNING: Using fallback API key in Docusaurus chatbot. This should be changed before production deployment.");
+    return 'OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU';
   }
 
   connectedCallback() {
@@ -181,7 +216,7 @@ class RAGChatbot extends HTMLElement {
           </div>
           <div class="chat-messages" id="chat-messages">
             <div class="message bot">
-              Hello! I'm your RAG Chatbot. I can answer questions about this documentation. What would you like to know?
+              Hello! I'm your RAG Chatbot. I can answer questions about this documentation. What would you like to know?<br><br><i>Note: This chatbot requires a backend service to function. If responses fail, the backend may not be accessible.</i>
             </div>
           </div>
           <div class="typing-indicator" id="typing-indicator">AI is thinking...</div>
@@ -259,17 +294,22 @@ class RAGChatbot extends HTMLElement {
       const currentPageContent = this.getCurrentPageContent();
 
       // Call the RAG API
-      const response = await fetch(`${this.apiBaseUrl}/agent/ask`, {
+      const response = await fetch(`${this.apiBaseUrl}/api/v1/agent/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.apiKey
+          'Authorization': `Bearer ${this.apiKey}`
         },
         body: JSON.stringify({
           question: message,
-          selected_text: currentPageContent ? currentPageContent.substring(0, 2000) : null // Limit context
+          selected_text: currentPageContent ? currentPageContent.substring(0, 2000) : null, // Limit context
+          context_restrict: !!currentPageContent // Restrict to selected text if available
         })
       });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
 
       const data = await response.json();
 
@@ -285,7 +325,13 @@ class RAGChatbot extends HTMLElement {
     } catch (error) {
       console.error('Error sending message:', error);
       typingIndicator.classList.remove('visible');
-      this.addMessage('Sorry, there was an error processing your request. Please try again.', 'bot');
+
+      // Provide a more helpful message depending on the error type
+      if (error.message.includes('404') || error.message.includes('Failed to fetch')) {
+        this.addMessage('Backend API is not available. This chatbot requires a running backend service to function. The API endpoint might not be accessible from this environment.', 'bot');
+      } else {
+        this.addMessage('Sorry, there was an error processing your request. Please try again.', 'bot');
+      }
     }
   }
 
@@ -326,8 +372,21 @@ customElements.define('rag-chatbot', RAGChatbot);
 
 // Auto-initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  if (!document.querySelector('rag-chatbot')) {
-    const chatbot = document.createElement('rag-chatbot');
-    document.body.appendChild(chatbot);
-  }
+  // Wait a bit to ensure Docusaurus has fully rendered
+  setTimeout(() => {
+    if (!document.querySelector('rag-chatbot')) {
+      const chatbot = document.createElement('rag-chatbot');
+      document.body.appendChild(chatbot);
+    }
+  }, 500); // Small delay to ensure Docusaurus page is fully loaded
+});
+
+// Also try to initialize when the window loads (backup initialization)
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (!document.querySelector('rag-chatbot')) {
+      const chatbot = document.createElement('rag-chatbot');
+      document.body.appendChild(chatbot);
+    }
+  }, 1000);
 });
