@@ -52,7 +52,7 @@ const config: Config = {
       tagName: 'meta',
       attributes: {
         name: 'api-base-url',
-        content: 'http://localhost:8000', // Update this with your actual backend URL for production
+        content: 'https://humanoid-robotics-docusource-production.up.railway.app', // Railway backend URL
       },
     },
   ],

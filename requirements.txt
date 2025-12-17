@@ -1,8 +1,0 @@
-google-generativeai
-fastapi
-qdrant-client
-psycopg[binary]
-uvicorn
-python-dotenv
-pytest
-pydantic

@@ -31,7 +31,8 @@
       "Bash(git add . '!final-heckathone/')",
       "Bash(git push -u origin master)",
       "Bash(git add .)",
-      "Bash(git add .claude/ my-website/ backend/ frontend/ specs/ history/ .github/)"
+      "Bash(git add .claude/ my-website/ backend/ frontend/ specs/ history/ .github/)",
+      "Bash(git commit -m \"Update project files\n\nThis commit includes updates to configuration files, Docusaurus documentation site, backend services, and related configurations.\" -m \"🤖 Generated with [Claude Code](https://claude.com/claude-code)\" -m \"Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\")"
     ]
   }
 }
