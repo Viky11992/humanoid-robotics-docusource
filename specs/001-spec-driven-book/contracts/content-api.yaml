@@ -1,0 +1,153 @@
+# Physical AI & Robotics API Contract
+
+## Overview
+This contract defines the interface for managing Physical AI and Robotics textbook content in the Docusaurus-based documentation system, including robotics-specific content management and simulation integration.
+
+## ROS 2 Content Creation Endpoint
+```
+POST /api/ros2-content/create
+```
+
+### Request
+```json
+{
+  "title": "string, required - The title of the ROS 2 content piece",
+  "content": "string, required - The MDX content with ROS 2 code examples",
+  "frontmatter": "object, optional - Metadata for the content",
+  "category": "string, optional - The category or chapter this belongs to (e.g., ros2-nodes, simulation, isaac)",
+  "ros2_distro": "string, optional - ROS 2 distribution (humble, iron, etc.)",
+  "robot_type": "string, optional - Type of robot this content applies to",
+  "difficulty_level": "string, optional - beginner, intermediate, advanced"
+}
+```
+
+### Response (Success)
+```json
+{
+  "success": true,
+  "id": "string - The unique identifier for the created content",
+  "path": "string - The file path where content is stored",
+  "created_at": "string - ISO timestamp of creation",
+  "validation_status": "string - Status of content validation"
+}
+```
+
+### Response (Error)
+```json
+{
+  "success": false,
+  "error": "string - Error message",
+  "code": "string - Error code"
+}
+```
+
+## Simulation Content Validation Endpoint
+```
+POST /api/simulation-content/validate
+```
+
+### Request
+```json
+{
+  "content": "string, required - The content to validate",
+  "type": "string, required - Type of content (gazebo, unity, isaac_sim)",
+  "robot_model": "string, optional - URDF/SDF model to validate against",
+  "simulation_environment": "string, optional - Specific environment to test in"
+}
+```
+
+### Response
+```json
+{
+  "success": true,
+  "valid": "boolean - Whether the content passes validation",
+  "errors": "array - List of validation errors if any",
+  "warnings": "array - List of warnings if any",
+  "simulation_test_results": "object - Results from simulation validation tests"
+}
+```
+
+## Robotics Deployment Status Endpoint
+```
+GET /api/deployment/robotics-status
+```
+
+### Response
+```json
+{
+  "status": "string - Current deployment status (success, failed, in_progress)",
+  "last_deployed": "string - ISO timestamp of last deployment",
+  "branch": "string - Branch that was deployed",
+  "commit_hash": "string - Commit hash of deployed version",
+  "ros2_workspace_status": "string - Status of ROS 2 workspace integration",
+  "simulation_environment_status": "string - Status of simulation environment"
+}
+```
+
+## Robotics Content Search Endpoint
+```
+GET /api/robotics-content/search
+```
+
+### Query Parameters
+```
+q: string - Search query
+category: string - Filter by category (e.g., ros2, gazebo, isaac, vla)
+robot_type: string - Filter by robot type (humanoid, quadruped, etc.)
+difficulty: string - Filter by difficulty level
+topic: string - Filter by specific robotics topic
+```
+
+### Response
+```json
+{
+  "results": [
+    {
+      "id": "string - Content identifier",
+      "title": "string - Content title",
+      "path": "string - Path to content",
+      "excerpt": "string - Brief excerpt of content",
+      "category": "string - Content category",
+      "robot_type": "string - Type of robot this content applies to",
+      "difficulty_level": "string - Beginner, intermediate, or advanced",
+      "last_modified": "string - ISO timestamp",
+      "requires_hardware": "boolean - Whether this content requires specific hardware"
+    }
+  ],
+  "total": "number - Total number of results",
+  "page": "number - Current page number",
+  "filters_applied": "object - Filters that were applied to the search"
+}
+```
+
+## Hardware Requirements Endpoint
+```
+GET /api/hardware/requirements
+```
+
+### Query Parameters
+```
+content_id: string - ID of content to get hardware requirements for
+```
+
+### Response
+```json
+{
+  "content_id": "string - The content identifier",
+  "minimum_requirements": {
+    "gpu": "string - Minimum GPU requirement",
+    "cpu": "string - Minimum CPU requirement",
+    "ram": "string - Minimum RAM requirement",
+    "os": "string - Required operating system"
+  },
+  "recommended_requirements": {
+    "gpu": "string - Recommended GPU",
+    "cpu": "string - Recommended CPU",
+    "ram": "string - Recommended RAM",
+    "os": "string - Recommended OS"
+  },
+  "robot_hardware": "string - Specific robot hardware needed",
+  "sensor_hardware": "array - List of required sensors",
+  "setup_instructions": "string - Path to setup instructions"
+}
+```

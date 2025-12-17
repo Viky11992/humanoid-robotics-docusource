@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(set QDRANT_PATH=)",
+      "Bash(set QDRANT_URL=)",
+      "Bash(python -c \"import os; os.environ[''QDRANT_PATH'']=''''; import uvicorn; from backend.main import app; uvicorn.run(app, host=''0.0.0.0'', port=8000)\")",
+      "Bash(ls -la .env*)",
+      "Bash(python start_backend_with_env.py)",
+      "Bash(timeout 5 ping 127.0.0.1)",
+      "Bash(dir qdrant_data)",
+      "Bash(python test_rag_ingest.py)",
+      "Bash(python debug_api_key.py)",
+      "Bash(python run_ingestion.py)",
+      "Bash(python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000)",
+      "Bash(python -c \"from dotenv import load_dotenv; load_dotenv(); import os; print(''API_KEY:'', os.getenv(''API_KEY'')); print(''GOOGLE_API_KEY:'', os.getenv(''GOOGLE_API_KEY'') is not None); print(''QDRANT_URL:'', os.getenv(''QDRANT_URL'') is not None)\")",
+      "Bash(curl -X POST \"http://localhost:8000/agent/ask\" -H \"Content-Type: application/json\" -H \"x-api-key: OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU\" -d \"{\"\"question\"\": \"\"Hello\"\", \"\"selected_text\"\": null}\")",
+      "Bash(git fetch --all --prune)",
+      "Bash(.specify/scripts/powershell/create-new-feature.ps1 -Json \"AI/Spec-Driven Book Creation: Building and Deploying a Technical Book with Docusaurus and GitHub Pages\nTarget audience:\nDevelopers, technical writers, and educators interested in AI-assisted, specification-driven content creation (intermediate proficiency in JavaScript/React, Git, and Markdown assumed)\nFocus:\nA complete, practical guide to creating a high-quality, interactive technical book using Docusaurus, driven entirely by explicit specifications (Spec-Kit Plus) and AI assistance (Claude Code), with full deployment to GitHub Pages\nSuccess criteria:\n\nReaders can follow the book end-to-end to create and deploy their own Docusaurus-based book from scratch\nIncludes at least 10 fully working, progressively complex examples (from basic site setup to advanced MDX features, plugins, and custom components)\nDemonstrates real Spec-Kit Plus workflow with actual specification files and evolution history\nShows concrete Claude Code prompts, iterations, and before/after code comparisons for key sections\nFinal deployed site is fast, accessible, and serves as a live example of the book''s teachings\nReaders understand how to maintain, version, and collaborate on spec-driven documentation projects\n\nConstraints:\n\nTotal content: Minimum 20,000 words across at least 10 chapters/sections\nFormat: Docusaurus-compatible Markdown/MDX files with proper frontmatter, syntax-highlighted code blocks, and embedded interactive elements where appropriate\nTools: Limited to Spec-Kit Plus, Claude Code, Docusaurus (v3 or latest stable), standard free plugins, GitHub, and GitHub Pages\nTimeline: Structured for incremental development with clear milestones per chapter\nAll code examples must run without external paid services\n\nNot building:\n\nGeneral Docusaurus reference manual (link to official docs instead)\nIn-depth tutorials on unrelated tools (e.g., Next.js, Vercel alternatives)\nCommercial theme or premium plugin recommendations\nExtensive coverage of advanced React development beyond what''s needed for Docusaurus customization\nDiscussion of altern\" -Number 1 -ShortName \"spec-driven-book\")",
+      "Bash(mkdir -p specs/001-spec-driven-book)",
+      "Bash(mkdir -p specs/001-spec-driven-book/checklists)",
+      "Bash(mkdir -p ./history/prompts/spec)",
+      "Bash(dir \"D:\\Heckathone-001\\Humanoid-Robotics\\my-website\\docs\")",
+      "Bash(dir:*)",
+      "Bash(mkdir \"D:\\Heckathone-001\\Humanoid-Robotics\\my-website\\docs\\module-4-vla\")",
+      "Bash(find D:Heckathone-001Humanoid-Roboticsmy-website -type f -name \"*.tsx\" -exec grep -l \"chatbot\\|Chatbot\" {} ;)",
+      "Bash(npm run build)",
+      "Bash(echo \"COHERE_API_KEY=your_cohere_api_key_here\nQDRANT_URL=your_qdrant_url_here\nQDRANT_API_KEY=your_qdrant_api_key_here\nNEON_DATABASE_URL=your_neon_database_url_here\nGENERAL_API_KEY=OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU\nQDRANT_COLLECTION_NAME=book_content\nDEBUG=false\")",
+      "Bash(git clone https://github.com/Viky11992/humanoid-robotics-docusource.git temp-target-repo)",
+      "WebFetch(domain:github.com)",
+      "Bash(git submodule status)",
+      "Bash(git add . '!final-heckathone/')"
+    ]
+  }
+}

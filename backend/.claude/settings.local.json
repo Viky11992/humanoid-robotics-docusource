@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch --all --prune)",
+      "Bash(powershell -Command \".specify/scripts/powershell/create-new-feature.ps1 -Json -Number 2 -ShortName ''rag-chatbot-integration'' -FeatureDescription ''Integrated RAG Chatbot Development: Building and Embedding a Retrieval-Augmented Generation Chatbot within the Published Book''\")",
+      "Bash(powershell -Command \".specify/scripts/powershell/create-new-feature.ps1 -Number 2 -ShortName ''rag-chatbot-integration'' -FeatureDescription ''Integrated RAG Chatbot Development: Building and Embedding a Retrieval-Augmented Generation Chatbot within the Published Book''\")",
+      "Bash(powershell -Command \".specify/scripts/powershell/check-prerequisites.ps1 -Json\")",
+      "Bash(powershell -Command \".specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks\")",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(find D:Heckathone-001Humanoid-Roboticsbackend -name \"*.py\" -exec grep -l \"router\\|@app\\|@router\" {} ;)",
+      "Bash(dir /s D:Heckathone-001Humanoid-Roboticsbackend*.py)",
+      "Bash(findstr -i \"router\")",
+      "Bash(pip install fastapi==0.104.1 uvicorn[standard]==0.24.0 cohere qdrant-client asyncpg python-dotenv pydantic pydantic-settings httpx python-multipart cryptography)",
+      "Bash(python -m uvicorn src.main:app --reload --port 8000 --workers 1)"
+    ]
+  }
+}
