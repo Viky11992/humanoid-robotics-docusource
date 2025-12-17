@@ -18,12 +18,12 @@ const config: Config = {
   url: 'https://Viky11992.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/Heckathone-001/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Viky11992', // Usually your GitHub org/user name.
-  projectName: 'Heckathone-001', // Usually your repo name.
+  projectName: 'humanoid-robotics-docusource', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -66,7 +66,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Viky11992/Heckathone-001/tree/main/my-website/',
+            'https://github.com/Viky11992/humanoid-robotics-docusource/tree/main/my-website/',
         },
         blog: {
           showReadingTime: true,
@@ -77,7 +77,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/Viky11992/Heckathone-001/tree/main/my-website/',
+            'https://github.com/Viky11992/humanoid-robotics-docusource/tree/main/my-website/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -111,7 +111,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/Viky11992/Heckathone-001',
+          href: 'https://github.com/Viky11992/humanoid-robotics-docusource',
           label: 'GitHub',
           position: 'right',
         },
@@ -155,7 +155,7 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/Viky11992/Heckathone-001',
+              href: 'https://github.com/Viky11992/humanoid-robotics-docusource',
             },
           ],
         },

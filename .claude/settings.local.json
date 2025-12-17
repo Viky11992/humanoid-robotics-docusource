@@ -28,7 +28,10 @@
       "Bash(git clone https://github.com/Viky11992/humanoid-robotics-docusource.git temp-target-repo)",
       "WebFetch(domain:github.com)",
       "Bash(git submodule status)",
-      "Bash(git add . '!final-heckathone/')"
+      "Bash(git add . '!final-heckathone/')",
+      "Bash(git push -u origin master)",
+      "Bash(git add .)",
+      "Bash(git add .claude/ my-website/ backend/ frontend/ specs/ history/ .github/)"
     ]
   }
 }
