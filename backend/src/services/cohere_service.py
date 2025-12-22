@@ -16,13 +16,13 @@ class CohereService:
         self.embed_model = "embed-multilingual-v3.0"  # Recommended for multilingual content
         self.generate_model = "command-r-plus"  # Best for RAG applications
 
-    def generate_embeddings(self, texts: List[str], input_type: str = "document") -> List[List[float]]:
+    def generate_embeddings(self, texts: List[str], input_type: str = "search_document") -> List[List[float]]:
         """
         Generate embeddings for the given texts using Cohere
 
         Args:
             texts: List of texts to embed
-            input_type: "document" for embedding content, "query" for embedding search queries
+            input_type: "search_document" for embedding content, "search_query" for embedding search queries
 
         Returns:
             List of embeddings (each embedding is a list of floats)

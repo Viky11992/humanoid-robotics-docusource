@@ -49,7 +49,7 @@ class RAGService:
             sources = []
 
             # Generate embedding for the query
-            query_embeddings = self.cohere_service.generate_embeddings([query], input_type="query")
+            query_embeddings = self.cohere_service.generate_embeddings([query], input_type="search_query")
             query_embedding = query_embeddings[0]
 
             # Search for similar content in Qdrant
@@ -134,7 +134,7 @@ class RAGService:
                 return False
 
             # Generate embeddings for all chunks
-            embeddings = self.cohere_service.generate_embeddings(valid_chunks, input_type="document")
+            embeddings = self.cohere_service.generate_embeddings(valid_chunks, input_type="search_document")
 
             # Prepare metadata for each chunk
             sources = [source_url or title for _ in valid_chunks]
