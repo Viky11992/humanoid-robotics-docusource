@@ -14,7 +14,7 @@ class CohereService:
 
         self.client = cohere.Client(api_key)
         self.embed_model = "embed-multilingual-v3.0"  # Recommended for multilingual content
-        self.generate_model = "command-r-plus"  # Best for RAG applications
+        self.generate_model = "command-r-plus-08-2024"  # Updated model for RAG applications
 
     def generate_embeddings(self, texts: List[str], input_type: str = "search_document") -> List[List[float]]:
         """
@@ -50,21 +50,20 @@ class CohereService:
             Generated response text
         """
         try:
-            # If context is provided, include it in the prompt
+            # If context is provided, include it in the message
             if context:
-                full_prompt = f"Based on the following context: {context}\n\nAnswer the following question: {prompt}\n\nIf the answer is not in the provided context, please state that you don't have enough information from the context to answer the question accurately."
+                message = f"Based on the following context: {context}\n\nAnswer the following question: {prompt}\n\nIf the answer is not in the provided context, please state that you don't have enough information from the context to answer the question accurately."
             else:
-                full_prompt = f"{prompt}\n\nProvide a helpful response."
+                message = f"{prompt}\n\nProvide a helpful response."
 
-            response = self.client.generate(
+            response = self.client.chat(
                 model=self.generate_model,
-                prompt=full_prompt,
+                message=message,
                 max_tokens=4000,  # Max output for command-r-plus
                 temperature=0.3,  # Lower temperature for more factual responses
-                stop_sequences=["\n\n"]  # Stop at double newlines to avoid hallucinations
             )
 
-            generated_text = response.generations[0].text if response.generations else ""
+            generated_text = response.text if response else ""
 
             # Validate response to prevent hallucinations
             validated_response = self._validate_response(generated_text, context)
@@ -108,7 +107,7 @@ class CohereService:
         """
         try:
             response = self.client.rerank(
-                model=self.generate_model,
+                model="rerank-multilingual-v2.0",  # Use dedicated rerank model
                 query=query,
                 documents=documents,
                 top_n=top_n

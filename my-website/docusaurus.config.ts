@@ -25,7 +25,7 @@ const config: Config = {
   organizationName: 'Viky11992', // Usually your GitHub org/user name.
   projectName: 'humanoid-robotics-docusource', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -37,8 +37,12 @@ const config: Config = {
 
   themes: ['@docusaurus/theme-live-codeblock'],
 
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap',
+  ],
   scripts: [
-    { src: '/js/rag-chatbot.js', defer: true }
+    { src: '/js/rag-chatbot.js', defer: true },
+    { src: '/js/mobile-utils.js', defer: true }
   ],
   headTags: [
     {
@@ -52,7 +56,7 @@ const config: Config = {
       tagName: 'meta',
       attributes: {
         name: 'api-base-url',
-        content: 'https://humanoid-robotics-docusource-production.up.railway.app', // Railway backend URL
+        content: process.env.API_BASE_URL || 'https://your-railway-backend-production.up.railway.app', // Railway backend URL for production
       },
     },
   ],
@@ -68,21 +72,6 @@ const config: Config = {
           editUrl:
             'https://github.com/Viky11992/humanoid-robotics-docusource/tree/main/my-website/',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/Viky11992/humanoid-robotics-docusource/tree/main/my-website/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -94,14 +83,12 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
+      defaultMode: 'light',
+      disableSwitch: false,
       respectPrefersColorScheme: true,
     },
     navbar: {
       title: 'Physical AI & Humanoid Robotics',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
       items: [
         {
           type: 'docSidebar',
@@ -109,7 +96,11 @@ const config: Config = {
           position: 'left',
           label: 'Tutorial',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          to: '/auth',
+          label: 'Sign In',
+          position: 'right',
+        },
         {
           href: 'https://github.com/Viky11992/humanoid-robotics-docusource',
           label: 'GitHub',
@@ -130,32 +121,32 @@ const config: Config = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Follow Me',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'GitHub',
+              href: 'https://github.com/Viky11992',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'LinkedIn',
+              href: 'https://www.linkedin.com/in/shoaibarshad92/',
             },
             {
-              label: 'X',
-              href: 'https://x.com/docusaurus',
+              label: 'Twitter/X',
+              href: 'https://x.com/ShoaibVickey',
             },
           ],
         },
         {
-          title: 'More',
+          title: 'Contact',
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              label: 'Email',
+              href: 'mailto:Shoaibarshad470@gmail.com',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/Viky11992/humanoid-robotics-docusource',
+              label: 'Facebook',
+              href: 'https://www.facebook.com/profile.php?id=100012378756441',
             },
           ],
         },

@@ -8,11 +8,13 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--robotics-blue) 0%, var(--robotics-gray) 100%);
+  color: white;
 }
 
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 2rem;
+    padding: 2rem 1rem;
   }
 }
 
@@ -20,4 +22,184 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Enhanced homepage styling for robotics theme */
+.roboticsHeroButtons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .roboticsHeroButtons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .button--secondary,
+  .button--primary {
+    width: 100%;
+    max-width: 280px;
+    margin: 0.25rem 0;
+  }
+}
+
+.roboticsFeatureCards {
+  padding: 4rem 0;
+  background-color: var(--robotics-light);
+}
+
+.roboticsFeatureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .roboticsFeatureCards {
+    padding: 2rem 0;
+  }
+
+  .roboticsFeatureGrid {
+    gap: 1.25rem;
+    padding: 0 1rem;
+  }
+}
+
+.roboticsFeatureCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  border-top: 4px solid var(--robotics-blue);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.roboticsFeatureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.roboticsFeatureIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--robotics-blue);
+}
+
+.roboticsFeatureTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--robotics-dark);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roboticsFeatureDescription {
+  color: #555;
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}
+
+/* Enhanced button styling */
+.button--secondary {
+  background: var(--robotics-accent);
+  border-color: var(--robotics-accent);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button--secondary:hover {
+  background: #e05e00;
+  border-color: #e05e00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.button--primary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .heroBanner {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .roboticsFeatureTitle {
+    font-size: 1.3rem;
+  }
+
+  .roboticsFeatureIcon {
+    font-size: 2.5rem;
+  }
+
+  .button--secondary {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Additional responsive improvements for homepage */
+@media (min-width: 1024px) {
+  .roboticsFeatureGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .roboticsFeatureGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Enhanced responsive typography for homepage */
+.responsive-hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.responsive-hero-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  line-height: 1.4;
+  margin-bottom: 2rem;
+}
+
+/* Responsive feature card improvements */
+@media (max-width: 480px) {
+  .roboticsFeatureCard {
+    padding: 1.25rem 1rem;
+  }
+
+  .roboticsFeatureIcon {
+    font-size: 2.5rem;
+  }
+
+  .roboticsFeatureTitle {
+    font-size: 1.25rem;
+  }
 }

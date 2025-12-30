@@ -184,23 +184,39 @@ class QdrantService:
         """
         if self.client is not None:
             try:
-                results = self._get_client().search(
+                results = self._get_client().query_points(
                     collection_name=self.collection_name,
-                    query_vector=query_embedding,
+                    query=query_embedding,
                     limit=limit,
                     score_threshold=threshold
                 )
 
-                # Format results
+                # Format results - query_points returns QueryResponse with results attribute
                 formatted_results = []
-                for result in results:
+
+                # Handle different return types from query_points
+                if hasattr(results, 'results'):
+                    # Newer API: query_points returns QueryResponse with 'results' attribute
+                    results_list = results.results
+                elif hasattr(results, 'points'):
+                    # Older format
+                    results_list = results.points
+                else:
+                    # Direct list (fallback)
+                    results_list = results
+
+                for result in results_list:
+                    # Handle different result structures
+                    payload = getattr(result, 'payload', getattr(result, 'document', {}))
+                    score = getattr(result, 'score', getattr(result, 'score', 0.0))
+
                     formatted_results.append({
-                        "content": result.payload.get("content", ""),
-                        "source": result.payload.get("source", ""),
-                        "chunk_id": result.payload.get("chunk_id", ""),
-                        "section": result.payload.get("section", ""),
-                        "score": result.score,
-                        "metadata": result.payload.get("metadata", {})
+                        "content": payload.get("content", ""),
+                        "source": payload.get("source", ""),
+                        "chunk_id": payload.get("chunk_id", ""),
+                        "section": payload.get("section", ""),
+                        "score": score if score is not None else 0.0,
+                        "metadata": payload.get("metadata", {})
                     })
 
                 logger.info(f"Found {len(formatted_results)} similar documents")

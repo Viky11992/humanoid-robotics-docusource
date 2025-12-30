@@ -21,9 +21,21 @@ class RAGChatbot extends HTMLElement {
         return apiBaseMeta.content;
     }
 
-    // For development, use localhost
+    // Check for environment-specific configuration
+    if (typeof window !== 'undefined' && window.location && window.location.hostname) {
+        const hostname = window.location.hostname;
+        if (hostname.includes('vercel.app')) {
+            // Vercel frontend environment - use Railway backend
+            return 'https://your-railway-backend-production.up.railway.app';
+        } else if (hostname.includes('github.io')) {
+            // GitHub Pages environment - use Railway backend
+            return 'https://your-railway-backend-production.up.railway.app';
+        }
+    }
+
+    // For development, use 127.0.0.1 (consistent with backend configuration)
     // For production GitHub Pages, you might need to update this to your backend URL
-    return 'http://localhost:8000';
+    return 'http://127.0.0.1:8000';
   }
 
   // Function to get API key from meta tag or other configuration source
@@ -39,9 +51,31 @@ class RAGChatbot extends HTMLElement {
         return window.API_CONFIG.apiKey;
     }
 
+    // Get API key from environment or configuration
+    if (typeof window !== 'undefined' && window.location && window.location.hostname) {
+        const hostname = window.location.hostname;
+        if (hostname.includes('vercel.app') || hostname.includes('github.io')) {
+            // For production environments, get API key from environment
+            return process.env.REACT_APP_API_KEY || window.REACT_APP_API_KEY ||
+                   (typeof window !== 'undefined' ? window.GLOBAL_API_KEY : null) ||
+                   this.getApiKeyFromMeta();
+        }
+    }
+
     // For development purposes only - this should be replaced in production
     console.warn("WARNING: Using fallback API key in Docusaurus chatbot. This should be changed before production deployment.");
     return 'OcGog7FUPfnhAYinrxeoeOjhVWn412ZONxcHzG2AVlU';
+  }
+
+  // Helper function to get API key from meta tags
+  getApiKeyFromMeta() {
+    const metaTags = document.getElementsByTagName('meta');
+    for (let i = 0; i < metaTags.length; i++) {
+      if (metaTags[i].name === 'api-key' || metaTags[i].name === 'data-api-key') {
+        return metaTags[i].content;
+      }
+    }
+    return null;
   }
 
   connectedCallback() {
@@ -342,8 +376,52 @@ class RAGChatbot extends HTMLElement {
     messageDiv.textContent = text;
     messagesContainer.appendChild(messageDiv);
 
-    // Scroll to bottom
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    // Scroll to bottom smoothly with a slight delay to ensure rendering
+    setTimeout(() => {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 10);
+
+    // Apply theme-specific styling
+    this.updateThemeStyles();
+  }
+
+  updateThemeStyles() {
+    const messagesContainer = this.querySelector('#chat-messages');
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+
+    if (currentTheme === 'dark') {
+      messagesContainer.style.setProperty('--message-user-bg', 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)');
+      messagesContainer.style.setProperty('--message-bot-bg', 'rgba(30, 41, 59, 0.8)');
+      messagesContainer.style.setProperty('--message-bot-border', 'rgba(55, 65, 81, 0.6)');
+      messagesContainer.style.setProperty('--message-bot-color', '#e2e8f0');
+    } else {
+      messagesContainer.style.setProperty('--message-user-bg', 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)');
+      messagesContainer.style.setProperty('--message-bot-bg', 'rgba(255, 255, 255, 0.8)');
+      messagesContainer.style.setProperty('--message-bot-border', 'rgba(226, 232, 240, 0.6)');
+      messagesContainer.style.setProperty('--message-bot-color', '#334155');
+    }
+  }
+
+  // Observe theme changes
+  observeThemeChanges() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          this.updateThemeStyles();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    // Also check for theme changes via media query
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addListener(() => {
+      this.updateThemeStyles();
+    });
   }
 
   getCurrentPageContent() {

@@ -11,7 +11,11 @@
       "Bash(dir /s D:Heckathone-001Humanoid-Roboticsbackend*.py)",
       "Bash(findstr -i \"router\")",
       "Bash(pip install fastapi==0.104.1 uvicorn[standard]==0.24.0 cohere qdrant-client asyncpg python-dotenv pydantic pydantic-settings httpx python-multipart cryptography)",
-      "Bash(python -m uvicorn src.main:app --reload --port 8000 --workers 1)"
+      "Bash(python -m uvicorn src.main:app --reload --port 8000 --workers 1)",
+      "Bash(dir ...env*)",
+      "Bash(dir \"..\\\\*\")",
+      "Bash(python ingest_docs.py)",
+      "Bash(python -c \"\nimport asyncio\nimport sys\nimport os\nsys.path.insert\\(0, os.path.join\\(os.getcwd\\(\\), ''src''\\)\\)\n\nfrom src.services.cohere_service import cohere_service\nfrom dotenv import load_dotenv\n\nasync def test_cohere_connection\\(\\):\n    load_dotenv\\(\\)\n    print\\(''Testing Cohere API connection...''\\)\n    \n    try:\n        # Test generating a simple response without context\n        response = cohere_service.generate_response\\(''Hello, how are you?''\\)\n        print\\(f''Success: Simple response generated: {response[:100]}...''\\)\n        print\\(''Cohere service is properly connected and functional!''\\)\n        return True\n    except Exception as e:\n        print\\(f''ERROR: Error testing Cohere connection: {str\\(e\\)}''\\)\n        import traceback\n        traceback.print_exc\\(\\)\n        return False\n\nif __name__ == ''__main__'':\n    success = asyncio.run\\(test_cohere_connection\\(\\)\\)\n    print\\(f''Cohere test result: {\"\"PASS\"\" if success else \"\"FAIL\"\"}''\\)\n\")"
     ]
   }
 }

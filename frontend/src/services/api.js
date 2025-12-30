@@ -1,9 +1,12 @@
 // API service for RAG Chatbot
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api/v1';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL ||
+                     (process.env.NODE_ENV === 'production' ?
+                      'https://your-railway-backend-production.up.railway.app' :
+                      'http://127.0.0.1:8000');
 
 class ApiService {
   constructor() {
-    this.apiKey = process.env.REACT_APP_API_KEY || 'your_general_api_key_here';
+    this.apiKey = process.env.REACT_APP_API_KEY || '';
   }
 
   // Set API key if not available in environment
@@ -44,13 +47,12 @@ class ApiService {
   // Chat endpoint
   async chat(query, sessionId = null, selectedText = null) {
     const body = {
-      query: query,
-      session_id: sessionId || undefined,
-      selected_text: selectedText || undefined,
+      question: query,  // Agent endpoint expects "question" instead of "query"
+      selected_text: selectedText || null,
       context_restrict: !!selectedText  // Restrict context if selected text is provided
     };
 
-    return this.makeRequest('/chat', {
+    return this.makeRequest('/agent/ask', {
       method: 'POST',
       body: JSON.stringify(body)
     });

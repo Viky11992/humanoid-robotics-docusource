@@ -1,0 +1,332 @@
+/* Authentication Components Styles */
+
+.auth-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.auth-form {
+  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-heading-color);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--ifm-font-color-base);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 3px rgba(var(--ifm-color-primary-rgb), 0.1);
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-group select[multiple] {
+  min-height: 150px;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid #fcc;
+}
+
+.auth-form button {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.auth-form button:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+.auth-form button:disabled {
+  background: var(--ifm-color-emphasis-200);
+  cursor: not-allowed;
+}
+
+.auth-links {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.auth-links a {
+  color: var(--ifm-color-primary);
+}
+
+/* Onboarding Flow Styles */
+.onboarding-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  background: var(--ifm-background-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.onboarding-header {
+  background: var(--ifm-color-primary);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.onboarding-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.step-indicator {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.onboarding-content {
+  padding: 2rem;
+}
+
+.onboarding-content textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  min-height: 150px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-option,
+.checkbox-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.radio-option:hover,
+.checkbox-option:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.radio-option input,
+.checkbox-option input {
+  margin-top: 0.25rem;
+}
+
+.radio-label,
+.checkbox-label {
+  flex: 1;
+}
+
+.radio-label strong,
+.checkbox-label {
+  display: block;
+}
+
+.radio-description {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  margin-top: 0.25rem;
+}
+
+.onboarding-actions {
+  padding: 1.5rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--ifm-color-primary);
+  transition: width 0.3s ease;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-buttons button {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.action-buttons button:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+.action-buttons button:disabled {
+  background: var(--ifm-color-emphasis-200);
+  cursor: not-allowed;
+}
+
+.action-buttons button:first-child {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+}
+
+.action-buttons button:first-child:hover {
+  background: var(--ifm-color-emphasis-300);
+}
+
+/* Profile Form Styles */
+.profile-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.profile-info {
+  background: var(--ifm-color-emphasis-100);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.profile-info h3 {
+  margin-top: 0;
+}
+
+.profile-form {
+  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.profile-display .profile-field {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.profile-display .profile-field:last-child {
+  border-bottom: none;
+}
+
+.profile-display button {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.form-actions button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.form-actions button:first-child {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+  border: 1px solid var(--ifm-color-emphasis-400);
+}
+
+.form-actions button:last-child {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-container,
+  .onboarding-container,
+  .profile-container {
+    margin: 1rem auto;
+    padding: 0 0.5rem;
+  }
+
+  .auth-form,
+  .onboarding-content,
+  .profile-form {
+    padding: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,62 @@
+.roboticsCard {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.roboticsCardHeader {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.roboticsCardIcon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.roboticsCardTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.roboticsCardContent {
+  padding: 1.5rem;
+}
+
+/* Type-specific styling */
+.roboticsCard--info {
+  border-left: 4px solid var(--ifm-color-info);
+}
+
+.roboticsCard--warning {
+  border-left: 4px solid var(--ifm-color-warning);
+}
+
+.roboticsCard--success {
+  border-left: 4px solid var(--ifm-color-success);
+}
+
+.roboticsCard--danger {
+  border-left: 4px solid var(--ifm-color-danger);
+}
+
+.roboticsCard--info .roboticsCardHeader {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.roboticsCard--warning .roboticsCardHeader {
+  background-color: rgba(251, 188, 5, 0.1);
+}
+
+.roboticsCard--success .roboticsCardHeader {
+  background-color: rgba(52, 168, 83, 0.1);
+}
+
+.roboticsCard--danger .roboticsCardHeader {
+  background-color: rgba(234, 67, 53, 0.1);
+}

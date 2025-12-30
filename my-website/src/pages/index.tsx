@@ -1,45 +1,24 @@
-import type {ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Layout from '@theme/Layout';
+import ResponsiveLayout from '@site/src/components/ResponsiveLayout';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
-import Heading from '@theme/Heading';
+import AnimatedHero from '@site/src/components/AnimatedHero';
 
 import styles from './index.module.css';
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary')}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
+    <ResponsiveLayout
+      title={`Physical AI & Humanoid Robotics`}
+      description="A comprehensive textbook on Physical AI and Humanoid Robotics, covering ROS 2, simulation environments, NVIDIA Isaac, and Vision-Language-Action systems">
+      <AnimatedHero />
       <main>
         <HomepageFeatures />
       </main>
       {/* RAG Chatbot will be initialized by the script in docusaurus.config.ts */}
-    </Layout>
+    </ResponsiveLayout>
   );
 }

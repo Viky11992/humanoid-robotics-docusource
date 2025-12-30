@@ -12,29 +12,13 @@ router = APIRouter()
 
 @router.post("/agent/ask")
 async def agent_ask_endpoint(
-    request: Request
+    request: Request,
+    auth: bool = Depends(api_key_auth)  # Use proper dependency injection
 ) -> Dict[str, Any]:
     """
     Agent endpoint that processes user queries using RAG methodology
     This endpoint is designed to match the expected interface for Docusaurus integration
     """
-    # Extract API key from Authorization header (Bearer token format)
-    auth_header = request.headers.get("authorization")
-    if not auth_header or not auth_header.startswith("Bearer "):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authorization header with Bearer token required"
-        )
-
-    api_key = auth_header.split(" ")[1]
-
-    # Verify the API key using the auth middleware function
-    if not api_key_auth(api_key):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid API key"
-        )
-
     # Rate limiting check
     client_id = "default_client"  # In a real app, this would be the actual client identifier
     if not rate_limiter.is_allowed(client_id):

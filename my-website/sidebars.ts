@@ -21,7 +21,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Introduction',
-      items: ['intro/physical-ai-overview', 'intro/embodied-intelligence', 'intro/why-physical-ai'],
+      items: ['intro/physical-ai-overview', 'intro/embodied-intelligence', 'intro/why-physical-ai', 'intro/ui-demo'],
     },
     {
       type: 'category',

@@ -6,6 +6,7 @@ import logging
 from src.api.chat_router import router as chat_router
 from src.api.health_router import router as health_router
 from src.api.agent_router import router as agent_router
+from src.api.auth_router import router as auth_router
 from src.services.postgres_service import postgres_service
 
 # Load environment variables
@@ -27,9 +28,12 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Local development
+        "http://localhost:3001",  # Alternative local development
         "https://viky11992.github.io",  # GitHub Pages deployment
         "https://humanoid-robotics.vercel.app",  # Vercel deployment
-        "https://*.vercel.app"  # Vercel deployment with any subdomain
+        "https://*.vercel.app",  # Vercel deployment with any subdomain
+        "https://*.railway.app",  # Railway deployment
+        "https://*.up.railway.app"  # Railway deployment with specific domain pattern
     ],  # In production, replace with specific origins
     allow_credentials=True,
     allow_methods=["*"],
@@ -40,6 +44,7 @@ app.add_middleware(
 app.include_router(chat_router, prefix="/api/v1", tags=["chat"])
 app.include_router(health_router, prefix="/api/v1", tags=["health"])
 app.include_router(agent_router, prefix="/api/v1", tags=["agent"])
+app.include_router(auth_router, prefix="/api/v1", tags=["auth"])
 
 @app.on_event("startup")
 async def startup_event():
